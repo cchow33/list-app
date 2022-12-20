@@ -8,7 +8,7 @@ function App() {
       id: 1,
       title: 'Afterlives',
       author: 'Abdulrazak Gurnah',
-      checked: false
+      checked: true
     },
     {
       id: 2,
@@ -61,6 +61,8 @@ function App() {
     const bookItems = books.map((book) => 
       book.id === id ? { ...book, checked: !book.checked } : book);
       setBooks(bookItems); // change the state, pass in new array
+      // Save our state to localStorage (so the boxes we check get saved for later)
+      localStorage.setBooks('booklist', JSON.stringify(bookItems));
     }
   
   return (
@@ -71,9 +73,10 @@ function App() {
             <input 
               type="checkbox" 
               checked={book.checked}
-              onChange={handleCheck}
+              //onChange event to check boxes
+              onChange={() => handleCheck(book.id)}
             />
-          <p>{book.title} by {book.author}</p>     
+          <p onDoubleClick={() => handleCheck(book.id)}>{book.title} by {book.author}</p>     
           <span>x</span> 
           </li>
         ))}
