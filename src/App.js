@@ -1,8 +1,9 @@
 import logo from './logo.svg';
+import React, { useState } from 'react'
 import './App.css';
 
 function App() {
-  const books = [
+  const [books, setBooks] = useState([
     {
       id: 1,
       title: 'Afterlives',
@@ -51,15 +52,29 @@ function App() {
       author: 'Derek Owusu',
       checked: false
     },
-  ]
+  ])
+
+
+  // Function to handle checkboxes
+  const handleCheck = (id) => {
+    // How to see the state change when the checkbox is checked:
+    const bookItems = books.map((book) => 
+      book.id === id ? { ...book, checked: !book.checked } : book);
+      setBooks(bookItems); // change the state, pass in new array
+    }
   
   return (
     <div className="App">
       <h1>The 10 Must-Read Books of 2022</h1>
         {books.map((book) => (
           <li className="book" key={book.id}>
-            <input type="checkbox" checked={book.checked}/>
-          <p>{book.title} by {book.author}</p>      
+            <input 
+              type="checkbox" 
+              checked={book.checked}
+              onChange={handleCheck}
+            />
+          <p>{book.title} by {book.author}</p>     
+          <span>x</span> 
           </li>
         ))}
     </div>

@@ -27,6 +27,25 @@
 .App-link {
   color: #61dafb;
 }
+li{
+  list-style: none;
+}
+.book{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-left: 100px;
+}
+input[type="checkbox"]{
+  margin-right: 10px;
+  cursor: pointer;
+}
+span{
+  font-size: 15px;
+  padding-left: 20px;
+  text-decoration: underline;
+  cursor: pointer;
+}
 
 @keyframes App-logo-spin {
   from {
