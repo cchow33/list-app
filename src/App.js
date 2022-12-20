@@ -54,8 +54,7 @@ function App() {
     },
   ])
 
-
-  // Function to handle checkboxes
+  // 1. Function to check an item
   const handleCheck = (id) => {
     // How to see the state change when the checkbox is checked:
     const bookItems = books.map((book) => 
@@ -65,6 +64,13 @@ function App() {
       localStorage.setBooks('booklist', JSON.stringify(bookItems));
     }
   
+  // 2. Function to delete an item
+  const handleDelete = (id) => {
+    const filteredBooks = books.filter((book) => book.id !== id);
+    setBooks(filteredBooks);
+    localStorage.setBooks('booklist', JSON.stringify(bookItems));
+  }
+ 
   return (
     <div className="App">
       <h1>The 10 Must-Read Books of 2022</h1>
@@ -76,8 +82,12 @@ function App() {
               //onChange event to check boxes
               onChange={() => handleCheck(book.id)}
             />
-          <p onDoubleClick={() => handleCheck(book.id)}>{book.title} by {book.author}</p>     
-          <span>x</span> 
+          <p 
+            style={(book.checked) ? {textDecoration: 'line-through' } : null} 
+            onDoubleClick={() => handleCheck(book.id)}>
+            {book.title} by {book.author}
+          </p>     
+          <span onClick={() => handleDelete(book.item)}>x</span> 
           </li>
         ))}
     </div>
