@@ -56,24 +56,30 @@ function App() {
 
   // 1. Function to check an item
   const handleCheck = (id) => {
+    console.log('clicking item');
     // How to see the state change when the checkbox is checked:
     const bookItems = books.map((book) => 
-      book.id === id ? { ...book, checked: !book.checked } : book);
-      setBooks(bookItems); // change the state, pass in new array
-      // Save our state to localStorage (so the boxes we check get saved for later)
-      localStorage.setBooks('booklist', JSON.stringify(bookItems));
-    }
+    book.id === id ? { ...book, checked: !book.checked } : book);
+    setBooks(bookItems); // change the state, pass in new array
+    // Save our state to localStorage (so the boxes we check get saved for later)
+    localStorage.setBooks('booklist', JSON.stringify(bookItems));
+  }
   
   // 2. Function to delete an item
   const handleDelete = (id) => {
-    const filteredBooks = books.filter((book) => book.id !== id);
-    setBooks(filteredBooks);
+    console.log('deleting item');
+    const bookItems = books.filter((book) => book.id !== id);
+    setBooks(bookItems);
     localStorage.setBooks('booklist', JSON.stringify(bookItems));
   }
  
   return (
     <div className="App">
       <h1>The 10 Must-Read Books of 2022</h1>
+        {books.length === 0 ? 'no books to read' : null}
+
+
+
         {books.map((book) => (
           <li className="book" key={book.id}>
             <input 
@@ -87,7 +93,7 @@ function App() {
             onDoubleClick={() => handleCheck(book.id)}>
             {book.title} by {book.author}
           </p>     
-          <span onClick={() => handleDelete(book.item)}>x</span> 
+          <span onClick={() => handleDelete(book.id)}>x</span> 
           </li>
         ))}
     </div>
