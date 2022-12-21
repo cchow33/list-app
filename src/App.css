@@ -27,38 +27,6 @@
 .App-link {
   color: #61dafb;
 }
-li{
-  list-style: none;
-}
-.book{
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  margin-left: 100px;
-  border-radius: 15px;
-  margin-bottom: 10px;
-  width: 80%;
-}
-.book:nth-child(odd){
-  background-color: papayawhip;
-}
-.book:nth-child(even){
-  background-color: lightgoldenrodyellow;
-}
-input[type="checkbox"]{
-  margin-right: 15px;
-  cursor: pointer;
-  margin-left: 20px;
-}
-span{
-  font-size: 15px;
-  padding-left: 20px;
-  text-decoration: underline;
-  cursor: pointer;
-}
-p{
-  cursor: pointer;
-}
 
 @keyframes App-logo-spin {
   from {

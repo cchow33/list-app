@@ -1,8 +1,13 @@
 import logo from './logo.svg';
-import React, { useState } from 'react'
+import Booklist from './components/Booklist'
+import Header from './components/Header'
+import Footer from './components/Footer'
+import { useState } from 'react'
 import './App.css';
 
 function App() {
+  // This was all in Booklist.js and then got moved up to App.js so that it can later be drilled down/passed to Booklist.js' sister component, Footer.js
+  // Below will be passed as props to child components
   const [books, setBooks] = useState([
     {
       id: 1,
@@ -54,50 +59,42 @@ function App() {
     },
   ])
 
-  // 1. Function to check an item
-  const handleCheck = (id) => {
-    console.log('clicking item');
-    // How to see the state change when the checkbox is checked:
-    const bookItems = books.map((book) => 
-    book.id === id ? { ...book, checked: !book.checked } : book);
-    setBooks(bookItems); // change the state, pass in new array
-    // Save our state to localStorage (so the boxes we check get saved for later)
-    localStorage.setBooks('booklist', JSON.stringify(bookItems));
-  }
-  
-  // 2. Function to delete an item
-  const handleDelete = (id) => {
-    console.log('deleting item');
-    const bookItems = books.filter((book) => book.id !== id);
-    setBooks(bookItems);
-    localStorage.setBooks('booklist', JSON.stringify(bookItems));
-  }
- 
-  return (
-    <div className="App">
-      <h1>The 10 Must-Read Books of 2022</h1>
-        {books.length === 0 ? 'no books to read' : null}
 
+// 1. Function to check a book title
+const handleCheck = (id) => {
+  console.log('clicking item');
+  // How to see the state change when the checkbox is checked:
+  const bookItems = books.map((book) => 
+  book.id === id ? { ...book, checked: !book.checked } : book);
+  setBooks(bookItems); // change the state, pass in new array
+  // Save our state to localStorage (so the boxes we check get saved for later)
+  localStorage.setBooks('booklist', JSON.stringify(bookItems));
+}
 
+// 2. Function to delete a book title
+const handleDelete = (id) => {
+  console.log('deleting item');
+  const bookItems = books.filter((book) => book.id !== id);
+  setBooks(bookItems);
+  localStorage.setBooks('booklist', JSON.stringify(bookItems));
+}
 
-        {books.map((book) => (
-          <li className="book" key={book.id}>
-            <input 
-              type="checkbox" 
-              checked={book.checked}
-              //onChange event to check boxes
-              onChange={() => handleCheck(book.id)}
-            />
-          <p 
-            style={(book.checked) ? {textDecoration: 'line-through' } : null} 
-            onDoubleClick={() => handleCheck(book.id)}>
-            {book.title} by {book.author}
-          </p>     
-          <span onClick={() => handleDelete(book.id)}>x</span> 
-          </li>
-        ))}
+  return(
+    <div className='App'>
+      <Header 
+        title='Top 10 Books of 2022'/>
+
+{/*// Pass books, handleCheck and handleDelete as props down to Booklist.js */}
+      <Booklist
+        books={books}
+        handleCheck={handleCheck}
+        handleDelete={handleDelete}
+      />
+
+{/*// Pass props down to Footer.js . Notice the attribute and prop name don't have to match*/}
+      <Footer length={books.length}/>
     </div>
-  );
+  )
 }
 
 export default App;
