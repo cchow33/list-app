@@ -1,0 +1,31 @@
+.addBook{
+  width: 60%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-left: 200px;
+  border-bottom: 1px solid white;
+}
+.addBook label{
+  position: absolute;
+  left: -999999px;
+}
+.addBook input[type='text']{
+  flex-grow: 1;
+  max-width: calc(100% - 50px);
+  min-height: 30px;
+  padding: 0.25rem;
+  border-radius: 0.25rem;
+  margin-right: 0.25rem;
+  outline: none;
+/* } */
+/* button:focus,
+button:hover{
+  color: black;
+  background-color: antiquewhite;
+  outline: none; */
+}
+button{
+  min-height: 40px;
+  min-width: 40px;
+}

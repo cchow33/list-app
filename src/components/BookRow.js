@@ -1,8 +1,8 @@
 import React from 'react'
 
-const BookRow = ({book, handleCheck, handleDelete}) => {
+const BookRow = ({ book, handleCheck, handleDelete }) => {
   return (
-    <li className="book" key={book.id}>
+    <li className="book">
       <input 
         type="checkbox" 
         checked={book.checked}

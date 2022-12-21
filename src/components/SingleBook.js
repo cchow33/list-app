@@ -6,7 +6,13 @@ const SingleBook = ({ books, handleCheck, handleDelete }) => {
   return (
     <ul>
       {books.map((book) => (
-        <BookRow/>
+      // Pass props
+        <BookRow
+          key={book.id}
+          book={book}
+          handleCheck={handleCheck}
+          handleDelete={handleDelete}
+        />
       ))}
     </ul>
   )
