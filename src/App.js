@@ -1,12 +1,12 @@
 import logo from './logo.svg';
-import Booklist from './components/Booklist'
+import ListOfBooks from './components/ListOfBooks'
 import Header from './components/Header'
 import Footer from './components/Footer'
 import { useState } from 'react'
 import './App.css';
 
 function App() {
-  // This was all in Booklist.js and then got moved up to App.js so that it can later be drilled down/passed to Booklist.js' sister component, Footer.js
+  // This was all in ListOfBooks.js and then got moved up to App.js so that it can later be drilled down/passed to ListOfBooks.js' sister component, Footer.js
   // Below will be passed as props to child components
   const [books, setBooks] = useState([
     {
@@ -68,7 +68,7 @@ const handleCheck = (id) => {
   book.id === id ? { ...book, checked: !book.checked } : book);
   setBooks(bookItems); // change the state, pass in new array
   // Save our state to localStorage (so the boxes we check get saved for later)
-  localStorage.setBooks('booklist', JSON.stringify(bookItems));
+  localStorage.setBooks('ListOfBooks', JSON.stringify(bookItems));
 }
 
 // 2. Function to delete a book title
@@ -76,7 +76,7 @@ const handleDelete = (id) => {
   console.log('deleting item');
   const bookItems = books.filter((book) => book.id !== id);
   setBooks(bookItems);
-  localStorage.setBooks('booklist', JSON.stringify(bookItems));
+  localStorage.setBooks('ListOfBooks', JSON.stringify(bookItems));
 }
 
   return(
@@ -84,8 +84,8 @@ const handleDelete = (id) => {
       <Header 
         title='Top 10 Books of 2022'/>
 
-{/*// Pass books, handleCheck and handleDelete as props down to Booklist.js */}
-      <Booklist
+{/*// Pass books, handleCheck and handleDelete as props down to ListOfBooks.js */}
+      <ListOfBooks
         books={books}
         handleCheck={handleCheck}
         handleDelete={handleDelete}
