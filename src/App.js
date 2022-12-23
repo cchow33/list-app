@@ -6,6 +6,7 @@ import AddBook from './components/AddBook';
 import { useState, useEffect } from 'react'
 import './App.css';
 import SearchBook from './components/SearchBook';
+import apiRequest from './apiRequest';
 
 function App() {
   const API_URL = 'http://localhost:3001/books';
@@ -17,7 +18,9 @@ function App() {
   const [fetchError, setFetchError] = useState(null);
   // When app first loads isLoading is true
   const [isLoading, setIsLoading] = useState(true); 
+  
 
+  // READ in CRUD:
   useEffect(() => {
     // create async arrow function with a try block and a catch block to catch any errors.
     const fetchBooks = async () => {
@@ -35,25 +38,53 @@ function App() {
       }
     }
 
+    // Simulate call to an api with a 2sec timeout
     setTimeout(() => fetchBooks(), 2000);
   }, []) // this empty array means useEffect only happens at load time
 
   // How do I know what param this function will receive
-  const addBook = (book) => {
+  const addBook = async (book) => {
     const id = books.length ? books[books.length - 1].id + 1 : 1;
     const myNewBook = {id, checked: false, book};
      const bookItems = [...books, myNewBook];
      setBooks(bookItems);
+
+    // POST request to api and add new book to our dbase:
+    const postOptions = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(myNewBook) // new book we want to post to API
+    }
+    // change to await, because apiRequest is an async function
+    const result = await apiRequest(API_URL, postOptions);
+    // Remember apiRequest only returns an errMsg (null or has a message) so if we have a result (message is not null), setFetchError(result);
+    if (result) setFetchError(result);
   }
 
 // 1. Function to check a book 
-const handleCheck = (id) => {
+const handleCheck = async (id) => {
   console.log('clicking item');
   // How to see the state change when the checkbox is checked:
   const bookItems = books.map((book) => 
   book.id === id ? { ...book, checked: !book.checked } : book);
   setBooks(bookItems);
+
+  const myBook = bookItems.filter(book => book.id === id);
+  const updateOptions = {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ checked: myBook[0].checked })
+  }
+  // define the request url. You will see 'checked: true' in our db.json
+  const requestUrl = `${API_URL}/${id}`;
+  const result = await apiRequest(requestUrl, updateOptions);
+  if(result) setFetchError(result);
 }
+
 
 // 2. Function to delete a book 
 const handleDelete = (id) => {
