@@ -9,8 +9,8 @@ import SearchBook from './components/SearchBook';
 
 function App() {
   const API_URL = 'http://localhost:3001/books';
-  // Declare state with useState hook
-  const [books, setBooks] = useState(JSON.parse(localStorage.getItem('ListOfBooks')));
+  // Declare state with useState hook and load data fromo localStorage. I
+  const [books, setBooks] = useState(JSON.parse(localStorage.getItem('ListOfBooks')) || []);
   // const [books, setBooks] = useState([
   //   {
   //     id: 1,
