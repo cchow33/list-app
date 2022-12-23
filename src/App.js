@@ -62,12 +62,11 @@ function App() {
   //   },])
 
   // const [books, setBooks] = useState()
-
   const [newBook, setNewBook] = useState('')
   const [search, setSearch] = useState('')
 
   useEffect(() => {
-    localStorage.setBook('ListOfBooks', JSON.stringify());
+    localStorage.setBook('ListOfBooks', JSON.stringify(books));
   }, [books]) // useEffect runs only if the dependencies change
 
 
@@ -81,7 +80,7 @@ function App() {
     const id = books.length ? books[books.length - 1].id + 1 : 1;
     const myNewBook = {id, checked: false, book};
      const bookItems = [...books, myNewBook];
-     setAndSaveBooks(bookItems);
+     setBooks(bookItems);
   }
 
 // 1. Function to check a book 
@@ -90,14 +89,14 @@ const handleCheck = (id) => {
   // How to see the state change when the checkbox is checked:
   const bookItems = books.map((book) => 
   book.id === id ? { ...book, checked: !book.checked } : book);
-  setAndSaveBooks(bookItems);
+  setBooks(bookItems);
 }
 
 // 2. Function to delete a book 
 const handleDelete = (id) => {
   // console.log('deleting item');
   const bookItems = books.filter((book) => book.id !== id);
-  setAndSaveBooks(bookItems);
+  setBooks(bookItems);
 }
 
 // 3. Function to add a book
