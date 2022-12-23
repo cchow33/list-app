@@ -15,9 +15,21 @@ function App() {
   const [newBook, setNewBook] = useState('')
   const [search, setSearch] = useState('')
 
-
   useEffect(() => {
-  }, []) // useEffect runs only if the dependencies change
+    // create async arrow function with a try block and a catch block to catch any errors.
+    const fetchBooks = async () => {
+      try {
+        const response = await fetch(API_URL);
+        const bookItems = await response.json();
+        console.log(bookItems);
+        setBooks(bookItems); //setBooks to bookItems
+      } catch (err) {
+        console.log(err.stack)
+      }
+    }
+
+    setTimeout(() => fetchBooks(), 2000);
+  }, []) // this empty array means useEffect only runs when dependencies changes
 
   // How do I know what param this function will receive
   const addBook = (book) => {
