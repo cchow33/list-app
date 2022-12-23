@@ -12,24 +12,28 @@ function App() {
   // Declare state with useState hook and load data fromo localStorage. I
   // const [books, setBooks] = useState(JSON.parse(localStorage.getItem('ListOfBooks')) || []);
   const [books, setBooks] = useState([]); //replace localStorage
-  const [newBook, setNewBook] = useState('')
-  const [search, setSearch] = useState('')
+  const [newBook, setNewBook] = useState('');
+  const [search, setSearch] = useState('');
+  const [fetchError, setFetchError] = useState(null);
 
   useEffect(() => {
     // create async arrow function with a try block and a catch block to catch any errors.
     const fetchBooks = async () => {
       try {
         const response = await fetch(API_URL);
+        if(!response.ok) throw Error('Did not receive expected data');
         const bookItems = await response.json();
         console.log(bookItems);
         setBooks(bookItems); //setBooks to bookItems
+        setFetchError(null);
       } catch (err) {
-        console.log(err.stack)
+        console.log(err.stack, err.message)
+        setFetchError(err.message);
       }
     }
 
     setTimeout(() => fetchBooks(), 2000);
-  }, []) // this empty array means useEffect only runs when dependencies changes
+  }, []) // this empty array means useEffect only happens at load time
 
   // How do I know what param this function will receive
   const addBook = (book) => {
