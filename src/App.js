@@ -87,10 +87,15 @@ const handleCheck = async (id) => {
 
 
 // 2. Function to delete a book 
-const handleDelete = (id) => {
+const handleDelete = async (id) => {
   // console.log('deleting item');
   const bookItems = books.filter((book) => book.id !== id);
   setBooks(bookItems);
+
+  const deleteOptions = { method: 'DELETE' };
+  const requestUrl = `${API_URL}/${id}`;
+  const result = await apiRequest(requestUrl, deleteOptions);
+  if(result) setFetchError(result);
 }
 
 // 3. Function to add a book
