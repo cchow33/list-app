@@ -15,6 +15,8 @@ function App() {
   const [newBook, setNewBook] = useState('');
   const [search, setSearch] = useState('');
   const [fetchError, setFetchError] = useState(null);
+  // When app first loads isLoading is true
+  const [isLoading, setIsLoading] = useState(true); 
 
   useEffect(() => {
     // create async arrow function with a try block and a catch block to catch any errors.
@@ -28,6 +30,8 @@ function App() {
         setFetchError(null);
       } catch (err) {
         setFetchError(err.message);
+      } finally {
+        setIsLoading(false);
       }
     }
 
@@ -89,9 +93,10 @@ const handleSubmit = (e) => {
 
     <main>      
       {/* If there is an error while fetching data, display here to user */}
+      {isLoading && <p>Loading Items...</p>}
       {fetchError && <p style={{color: 'red'}}>{`Error: ${fetchError}`}</p>}
       {/* otherwise display: */}
-      {!fetchError && <ListOfBooks
+      {!fetchError && !isLoading &&<ListOfBooks
         books={books.filter(book => ((book.book).toLowerCase()).includes(search.toLowerCase()))}
         handleCheck={handleCheck}
         handleDelete={handleDelete}
