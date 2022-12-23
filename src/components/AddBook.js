@@ -1,17 +1,18 @@
 import React from 'react'
 import { FaPlus } from 'react-icons/fa';
+import { useRef } from 'react';
 import './AddBook.css';
 
-// React DevTools to check out new state updated automatically
 const AddBook = ({ newBook, setNewBook, handleSubmit }) => {
-  
+  const inputRef = useRef();
+
   return (
-    <form className="addBook" onSubmit={handleSubmit}> 
+    <form className="addForm" onSubmit={handleSubmit}> 
     {/* event is implicitly passed in handleSubmit */}
-      <label htmlFor="title"></label>
+      <label htmlFor="addBook">Add Book</label>
       <input
         autoFocus
-        id='addItem'
+        id='addBook'
         type='text'
         placeholder='Add Book'
         required
@@ -21,6 +22,7 @@ const AddBook = ({ newBook, setNewBook, handleSubmit }) => {
       <button 
         type="submit"
         aria-label='Add Book'
+        onClick={() => inputRef.current.focus()}
       >
         <FaPlus/>
       </button>

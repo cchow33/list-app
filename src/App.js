@@ -3,79 +3,83 @@ import ListOfBooks from './components/ListOfBooks'
 import Header from './components/Header'
 import Footer from './components/Footer'
 import AddBook from './components/AddBook';
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import './App.css';
 import SearchBook from './components/SearchBook';
 
 function App() {
-  // This was all in ListOfBooks.js and then got moved up to App.js so that it can later be drilled down/passed to ListOfBooks.js' sister component, Footer.js
-  // Below will be passed as props to child components
-
+  const API_URL =
   // Declare state with useState hook
-  const [books, setBooks] = useState([
-    {
-      id: 1,
-      title: 'Afterlives',
-      author: 'Abdulrazak Gurnah',
-      checked: true
-    },
-    {
-      id: 2,
-      title: 'Stay True',
-      author: 'Hua Hsu',
-      checked: false
-    },
-    {
-      id: 3,
-      title: 'Young Mungo',
-      author: 'Douglas Stuart',
-      checked: false
-    },
-    {
-      id: 4,
-      title: 'Mecca',
-      author: 'Susan Straight',      
-      checked: false
-    },
-    {
-      id: 5,
-      title: 'An Immense World',
-      author: 'Ed Yong',
-      checked: false
-    },
-    {
-      id: 6,
-      title: 'Tomorrow and Tomorrow and Tomorrow',
-      author: 'Gabrielle Zevin',
-      checked: false
-    },
-    {
-      id: 7,
-      title: 'Young Mungo',
-      author: 'Douglas Stuart',
-      checked: false
-    },
-    {
-      id: 8,
-      title: 'Losing the Plot',
-      author: 'Derek Owusu',
-      checked: false
-    },])
+  const [books, setBooks] = useState(JSON.parse(localStorage.getItem('ListOfBooks')));
+  // const [books, setBooks] = useState([
+  //   {
+  //     id: 1,
+  //     title: 'Afterlives',
+  //     author: 'Abdulrazak Gurnah',
+  //     checked: true
+  //   },
+  //   {
+  //     id: 2,
+  //     title: 'Stay True',
+  //     author: 'Hua Hsu',
+  //     checked: false
+  //   },
+  //   {
+  //     id: 3,
+  //     title: 'Young Mungo',
+  //     author: 'Douglas Stuart',
+  //     checked: false
+  //   },
+  //   {
+  //     id: 4,
+  //     title: 'Mecca',
+  //     author: 'Susan Straight',      
+  //     checked: false
+  //   },
+  //   {
+  //     id: 5,
+  //     title: 'An Immense World',
+  //     author: 'Ed Yong',
+  //     checked: false
+  //   },
+  //   {
+  //     id: 6,
+  //     title: 'Tomorrow and Tomorrow and Tomorrow',
+  //     author: 'Gabrielle Zevin',
+  //     checked: false
+  //   },
+  //   {
+  //     id: 7,
+  //     title: 'Young Mungo',
+  //     author: 'Douglas Stuart',
+  //     checked: false
+  //   },
+  //   {
+  //     id: 8,
+  //     title: 'Losing the Plot',
+  //     author: 'Derek Owusu',
+  //     checked: false
+  //   },])
 
   // const [books, setBooks] = useState()
 
   const [newBook, setNewBook] = useState('')
   const [search, setSearch] = useState('')
 
-  const setAndSaveBooks = (newBooks) => {
-    setBooks(newBooks)
-    localStorage.setBook('ListOfBooks', JSON.stringify(newBooks));
-  }
+  useEffect(() => {
+    localStorage.setBook('ListOfBooks', JSON.stringify());
+  }, [books]) // useEffect runs only if the dependencies change
+
+
+  // const setAndSaveBooks = (newBooks) => {
+  //   setBooks(newBooks);
+  //   localStorage.setBook('ListOfBooks', JSON.stringify(newBooks));
+  // }
 
   // How do I know what param this function will receive
   const addBook = (book) => {
-    const id = books.length ? books[books.length - 1].id + 1 : 1
-    const myNewBook = {id, checked: false, book}
+    const id = books.length ? books[books.length - 1].id + 1 : 1;
+    const myNewBook = {id, checked: false, book};
      const bookItems = [...books, myNewBook];
      setAndSaveBooks(bookItems);
   }
@@ -101,7 +105,7 @@ const handleSubmit = (e) => {
   // prevent page reload when entering new book title
   e.preventDefault();
   // exit function if no book entered
-  if(!newBook) return;
+  if (!newBook) return;
   // else add new book:
   addBook(newBook);
   // input field clears after submit
@@ -125,7 +129,7 @@ const handleSubmit = (e) => {
 
 {/*// Pass books, handleCheck and handleDelete as props down to ListOfBooks.js */}
       <ListOfBooks
-        books={books}
+        books={books.filter(book => ((book.book).toLowerCase()).includes(search.toLowerCase()))}
         handleCheck={handleCheck}
         handleDelete={handleDelete}
       />

@@ -14,7 +14,6 @@ const ListOfBooks = ({ books, handleCheck, handleDelete }) => {
       ) : (
           <p>No books to read!</p>
       )}
-
     </main>
   );
 }
