@@ -4,7 +4,7 @@ import SingleBook from './SingleBook';
 const ListOfBooks = ({ books, handleCheck, handleDelete }) => {
 
   return (
-    <main>
+    <>
       {books.length ? (
         <SingleBook
           books={books}
@@ -14,7 +14,7 @@ const ListOfBooks = ({ books, handleCheck, handleDelete }) => {
       ) : (
           <p>No books to read!</p>
       )}
-    </main>
+    </>
   );
 }
 

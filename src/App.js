@@ -27,7 +27,6 @@ function App() {
         setBooks(bookItems); //setBooks to bookItems
         setFetchError(null);
       } catch (err) {
-        console.log(err.stack, err.message)
         setFetchError(err.message);
       }
     }
@@ -73,9 +72,11 @@ const handleSubmit = (e) => {
 
   return(
     <div className='App'>
+
+      {/* Pass props to different components: */}
       <Header 
         title='Top 10 Books of 2022'/>
-{/*// Pass props: */}
+
       <AddBook
         newBook={newBook}
         setNewBook={setNewBook}
@@ -86,14 +87,17 @@ const handleSubmit = (e) => {
         setSearch={setSearch}
       />
 
-{/*// Pass books, handleCheck and handleDelete as props down to ListOfBooks.js */}
-      <ListOfBooks
+    <main>      
+      {/* If there is an error while fetching data, display here to user */}
+      {fetchError && <p style={{color: 'red'}}>{`Error: ${fetchError}`}</p>}
+      {/* otherwise display: */}
+      {!fetchError && <ListOfBooks
         books={books.filter(book => ((book.book).toLowerCase()).includes(search.toLowerCase()))}
         handleCheck={handleCheck}
         handleDelete={handleDelete}
-      />
+      />}
+    </main>
 
-{/*// Pass props down to Footer.js . Notice the attribute and prop name don't have to match*/}
       <Footer length={books.length}/>
     </div>
   )
