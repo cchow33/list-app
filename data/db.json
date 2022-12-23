@@ -1,0 +1,24 @@
+{
+  "books": [
+    {
+      "id": 1,
+      "checked": false,
+      "item": "Our Missing Hearts"
+    },
+    {
+      "id": 2,
+      "checked": false,
+      "item": "Namwayut We Are All One"
+    },
+    {
+      "id": 3,
+      "checked": false,
+      "item": "Bread"
+    },
+    {
+      "id": 4,
+      "checked": false,
+      "item": "Looking for Jane"
+    }
+  ]
+}
