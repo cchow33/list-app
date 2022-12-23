@@ -10,70 +10,14 @@ import SearchBook from './components/SearchBook';
 function App() {
   const API_URL = 'http://localhost:3001/books';
   // Declare state with useState hook and load data fromo localStorage. I
-  const [books, setBooks] = useState(JSON.parse(localStorage.getItem('ListOfBooks')) || []);
-  // const [books, setBooks] = useState([
-  //   {
-  //     id: 1,
-  //     title: 'Afterlives',
-  //     author: 'Abdulrazak Gurnah',
-  //     checked: true
-  //   },
-  //   {
-  //     id: 2,
-  //     title: 'Stay True',
-  //     author: 'Hua Hsu',
-  //     checked: false
-  //   },
-  //   {
-  //     id: 3,
-  //     title: 'Young Mungo',
-  //     author: 'Douglas Stuart',
-  //     checked: false
-  //   },
-  //   {
-  //     id: 4,
-  //     title: 'Mecca',
-  //     author: 'Susan Straight',      
-  //     checked: false
-  //   },
-  //   {
-  //     id: 5,
-  //     title: 'An Immense World',
-  //     author: 'Ed Yong',
-  //     checked: false
-  //   },
-  //   {
-  //     id: 6,
-  //     title: 'Tomorrow and Tomorrow and Tomorrow',
-  //     author: 'Gabrielle Zevin',
-  //     checked: false
-  //   },
-  //   {
-  //     id: 7,
-  //     title: 'Young Mungo',
-  //     author: 'Douglas Stuart',
-  //     checked: false
-  //   },
-  //   {
-  //     id: 8,
-  //     title: 'Losing the Plot',
-  //     author: 'Derek Owusu',
-  //     checked: false
-  //   },])
-
-  // const [books, setBooks] = useState()
+  // const [books, setBooks] = useState(JSON.parse(localStorage.getItem('ListOfBooks')) || []);
+  const [books, setBooks] = useState([]); //replace localStorage
   const [newBook, setNewBook] = useState('')
   const [search, setSearch] = useState('')
 
+
   useEffect(() => {
-    localStorage.setBook('ListOfBooks', JSON.stringify(books));
-  }, [books]) // useEffect runs only if the dependencies change
-
-
-  // const setAndSaveBooks = (newBooks) => {
-  //   setBooks(newBooks);
-  //   localStorage.setBook('ListOfBooks', JSON.stringify(newBooks));
-  // }
+  }, []) // useEffect runs only if the dependencies change
 
   // How do I know what param this function will receive
   const addBook = (book) => {
